@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190" width="240" height="190" fill="none">
+  <defs>
+    <linearGradient id="skyWash" x1="20" y1="14" x2="215" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF9EB"/>
+      <stop offset="55%" stop-color="#F2F7F4"/>
+      <stop offset="100%" stop-color="#E7F3EE"/>
+    </linearGradient>
+    <linearGradient id="owlBodyGrad" x1="76" y1="42" x2="144" y2="148" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6B73F5"/>
+      <stop offset="65%" stop-color="#535BE0"/>
+      <stop offset="100%" stop-color="#4148C4"/>
+    </linearGradient>
+    <linearGradient id="owlWingGrad" x1="130" y1="78" x2="170" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5860E6"/>
+      <stop offset="100%" stop-color="#3B42B5"/>
+    </linearGradient>
+    <linearGradient id="scarfGrad" x1="70" y1="98" x2="145" y2="122" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#56C497"/>
+      <stop offset="100%" stop-color="#2FA677"/>
+    </linearGradient>
+    <linearGradient id="branchGrad" x1="18" y1="154" x2="222" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9A7156"/>
+      <stop offset="50%" stop-color="#B08467"/>
+      <stop offset="100%" stop-color="#8B634A"/>
+    </linearGradient>
+    <radialGradient id="lanternGlow" cx="195" cy="117" r="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.72"/>
+      <stop offset="60%" stop-color="#FEF3C7" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Soft organic pebble sanctuary backdrop (asymmetric, warm, airy) -->
+  <path d="M 42 54 C 66 20 128 10 174 28 C 216 44 232 94 214 134 C 198 168 148 180 96 176 C 48 172 16 146 18 106 C 20 82 28 68 42 54 Z" fill="url(#skyWash)"/>
+
+  <!-- Warm morning sun tucked gently behind foliage -->
+  <circle cx="176" cy="52" r="24" fill="#FFEAA7" opacity="0.62"/>
+  <circle cx="176" cy="52" r="15" fill="#FDE088" opacity="0.55"/>
+
+  <!-- Soft distant eucalyptus hill curve -->
+  <path d="M 24 140 C 64 118 122 124 166 138 C 190 145 206 144 216 136 C 202 166 154 179 98 176 C 60 174 34 160 24 140 Z" fill="#D9F0E4" opacity="0.68"/>
+
+  <!-- Back botanical leaves (soft mist-sage) -->
+  <path d="M 46 134 C 28 118 24 94 36 80 C 50 90 56 112 52 134 Z" fill="#B7E7D2"/>
+  <path d="M 56 138 C 46 116 52 94 68 88 C 76 104 72 124 62 138 Z" fill="#8CD4B3" opacity="0.9"/>
+  <path d="M 164 126 C 154 102 164 78 184 70 C 190 88 184 110 170 128 Z" fill="#A5E0C5"/>
+  <path d="M 184 104 C 190 84 206 72 222 76 C 218 92 204 104 186 108 Z" fill="#77C8A3"/>
+
+  <!-- Warm lantern glow halo behind hanging lantern -->
+  <circle cx="195" cy="117" r="26" fill="url(#lanternGlow)"/>
+
+  <!-- Owl tail feathers peeking naturally beneath the wooden branch -->
+  <path d="M 90 140 C 86 152 89 162 97 164 C 103 165 107 156 108 144 Z" fill="#3B42B5"/>
+  <path d="M 103 141 C 102 154 108 164 116 164 C 122 164 125 154 122 141 Z" fill="#4B53CC"/>
+
+  <!-- Natural curving wooden branch & side twig -->
+  <path d="M 18 152 C 62 140 122 136 172 137 C 192 137 210 134 224 128" stroke="url(#branchGrad)" stroke-width="10.5" stroke-linecap="round"/>
+  <path d="M 22 149 C 66 138 124 134 172 135 C 192 135 208 132 221 127" stroke="#C89F81" stroke-width="2.6" stroke-linecap="round" opacity="0.6"/>
+  <!-- Side twig holding the lantern -->
+  <path d="M 168 136 C 180 124 188 108 202 94" stroke="#9A7156" stroke-width="5.2" stroke-linecap="round"/>
+
+  <!-- Foreground curved botanical leaves with delicate veins -->
+  <path d="M 38 146 C 24 148 15 138 16 126 C 28 126 39 134 44 144 Z" fill="#59B68E"/>
+  <path d="M 21 131 C 28 134 35 139 41 144" stroke="#E9FAF2" stroke-width="1.4" stroke-linecap="round"/>
+
+  <path d="M 150 137 C 154 122 168 114 180 118 C 176 130 164 138 152 139 Z" fill="#4BA881"/>
+  <path d="M 154 136 C 161 131 169 125 176 120" stroke="#E9FAF2" stroke-width="1.3" stroke-linecap="round"/>
+
+  <path d="M 206 133 C 216 124 228 124 234 132 C 226 140 214 140 205 136 Z" fill="#6EC49F"/>
+
+  <!-- Hanging sanctuary lantern on right twig -->
+  <path d="M 195 100 L 195 107" stroke="#8C644B" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M 189 108 C 191 104 199 104 201 108 Z" fill="#D98B2B"/>
+  <rect x="187.5" y="108" width="15" height="17" rx="6.5" fill="#FFFDF2" stroke="#E8A23A" stroke-width="1.8"/>
+  <ellipse cx="195" cy="117" rx="4.2" ry="5.2" fill="#FCD34D" opacity="0.88"/>
+  <circle cx="195" cy="116" r="2.2" fill="#FFFFFF"/>
+  <path d="M 190 125.5 L 200 125.5" stroke="#D98B2B" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Friendly, relaxed, slightly angled KitaTemani Owl perched warmly on branch -->
+  <g transform="translate(0, -1)">
+    <!-- Soft shadow cast on branch -->
+    <ellipse cx="109" cy="139" rx="28" ry="4.5" fill="#6F4E38" opacity="0.22"/>
+
+    <!-- Right wing raised slightly in a warm, gentle welcoming wave -->
+    <path d="M 134 86 C 149 80 161 73 168 68 C 173 65 177 71 172 79 C 166 89 154 100 139 107 Z" fill="url(#owlWingGrad)"/>
+    <path d="M 142 91 C 153 86 162 80 167 75" stroke="#8F97FF" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+
+    <!-- Organic plump owl silhouette (soft asymmetric listening posture) -->
+    <path d="M 105 42 C 113 41 119 38 125 33 C 131 29 138 32 140 39 C 142 45 142 54 145 64 C 150 78 151 96 147 112 C 143 128 131 139 108 139 C 85 139 73 128 70 112 C 67 96 69 78 74 64 C 77 54 77 46 80 40 C 83 34 89 32 94 36 C 98 39 101 42 105 42 Z" fill="url(#owlBodyGrad)"/>
+
+    <!-- Subtle warm indigo highlight on crown -->
+    <path d="M 86 43 C 96 47 116 46 128 39 C 122 46 102 50 86 43 Z" fill="#8C94FF" opacity="0.38"/>
+
+    <!-- Cozy cream belly apron -->
+    <path d="M 84 108 C 84 92 94 82 109 82 C 124 82 134 92 134 108 C 134 125 123 135 109 135 C 95 135 84 125 84 108 Z" fill="#FFFDF8"/>
+
+    <!-- Delicate hand-drawn belly feather scallops -->
+    <path d="M 97 109 C 100 113 104 113 107 109" stroke="#D5DCF8" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 111 109 C 114 113 118 113 121 109" stroke="#D5DCF8" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 103 119 C 106 123 111 123 114 119" stroke="#D5DCF8" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Cozy sage-mint sanctuary scarf with soft fluttering tail -->
+    <path d="M 76 83 C 88 94 128 94 141 82 C 142 88 139 94 134 97 C 118 103 97 103 82 96 C 76 93 74 88 76 83 Z" fill="url(#scarfGrad)"/>
+    <path d="M 84 93 C 73 99 63 107 58 117 C 64 120 71 118 76 112 C 81 106 86 100 90 95 Z" fill="#67D1A5"/>
+    <path d="M 65 113 C 71 107 77 101 83 96" stroke="#D2F8E8" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- Warm heart-shaped facial disc (soft cream white) -->
+    <path d="M 109 57 C 115 47 132 48 136 60 C 140 72 130 84 116 83 C 112 83 110 81 109 79 C 108 81 106 83 102 83 C 88 84 78 72 82 60 C 86 48 103 47 109 57 Z" fill="#FFFFFF"/>
+
+    <!-- Compassionate expressive eyes with soft happy curve -->
+    <ellipse cx="95.5" cy="65.5" rx="5.2" ry="6.0" fill="#1D224A"/>
+    <ellipse cx="122.5" cy="65.5" rx="5.2" ry="6.0" fill="#1D224A"/>
+    <!-- Warm catchlights -->
+    <circle cx="93.7" cy="63.3" r="2.1" fill="#FFFFFF"/>
+    <circle cx="97.3" cy="67.2" r="0.95" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="120.7" cy="63.3" r="2.1" fill="#FFFFFF"/>
+    <circle cx="124.3" cy="67.2" r="0.95" fill="#FFFFFF" opacity="0.8"/>
+
+    <!-- Soft gentle eyebrows giving attentive, kind expression -->
+    <path d="M 88 56.5 C 91.5 54 96.5 54 100 56" stroke="#7A82F0" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+    <path d="M 118 56 C 121.5 54 126.5 54 130 56.5" stroke="#7A82F0" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+
+    <!-- Soft peach-rose cheeks -->
+    <ellipse cx="85.5" cy="72.5" rx="4.4" ry="2.6" fill="#F9B4C4" opacity="0.72"/>
+    <ellipse cx="132.5" cy="72.5" rx="4.4" ry="2.6" fill="#F9B4C4" opacity="0.72"/>
+
+    <!-- Warm rounded honey beak -->
+    <path d="M 109 69 C 112.5 69 114.2 71.4 113.2 74.2 C 112.2 76.8 110.4 78.5 109 78.5 C 107.6 78.5 105.8 76.8 104.8 74.2 C 103.8 71.4 105.5 69 109 69 Z" fill="#F5A623"/>
+    <path d="M 107 71.2 C 108.5 70.6 110 70.6 111 71.2" stroke="#FFE6A3" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- Safe folded report letter cradled gently on left side -->
+    <g transform="translate(56, 98) rotate(-10)">
+      <rect x="0" y="0" width="32" height="23" rx="5" fill="#FFFFFF" stroke="#CFD7F2" stroke-width="1.6"/>
+      <path d="M 2.5 3.5 L 16 13.5 L 29.5 3.5" stroke="#BAC5EC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Warm coral heart seal symbolizing cared-for & protected report -->
+      <circle cx="16" cy="13" r="4.5" fill="#F47280"/>
+      <path d="M 14.3 13 L 15.5 14.2 L 17.8 11.9" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Left wing curved tenderly around the safe letter -->
+    <path d="M 74 86 C 63 93 61 108 68 119 C 72 125 80 125 85 119 C 87 115 84 100 81 90 Z" fill="url(#owlWingGrad)"/>
+    <path d="M 73 97 C 71 105 73 113 78 118" stroke="#8F97FF" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>
+
+    <!-- Warm amber feet perched gently over the branch -->
+    <path d="M 94 134 C 92 138 92 141 95 142 C 98 143 102 141 103 137" fill="#F5A623" stroke="#E08E16" stroke-width="1" stroke-linecap="round"/>
+    <path d="M 101 135 C 100 139 101 142 104 142 C 107 142 109 139 108 135" fill="#F5A623"/>
+    <path d="M 116 134 C 115 138 116 141 119 141 C 122 141 124 138 123 134" fill="#F5A623"/>
+    <path d="M 122 133 C 122 137 124 140 127 140 C 130 140 131 136 129 133" fill="#F5A623" stroke="#E08E16" stroke-width="1" stroke-linecap="round"/>
+  </g>
+
+  <!-- Two subtle drifting botanical petals (calm organic motion, zero AI sparkles) -->
+  <path d="M 52 54 C 55 48 61 48 62 53 C 58 57 54 57 52 54 Z" fill="#A7E3C6" opacity="0.85"/>
+  <path d="M 164 42 C 169 38 174 41 172 46 C 168 47 165 46 164 42 Z" fill="#C9D0FB" opacity="0.8"/>
+</svg>

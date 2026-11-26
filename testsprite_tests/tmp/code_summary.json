@@ -1,0 +1,258 @@
+{
+  "project_name": "KitaTemani",
+  "version": "0.1.0+1",
+  "description": "Platform digital pencegahan, dokumentasi aman, pendamping emosional AI (CurhAI), dan tombol darurat (Panic SOS) anti-bullying untuk siswa SMP–SMA.",
+  "tech_stack": [
+    "Flutter (Dart 3.5+)",
+    "Flutter Web (CanvasKit)",
+    "flutter_riverpod",
+    "MaterialPageRoute (AppRouter hash routing)",
+    "flutter_svg",
+    "google_fonts",
+    "supabase_flutter",
+    "Supabase PostgreSQL + RLS + Edge Functions (Deno/TypeScript)",
+    "OpenRouter / Qwen LLM via Edge Functions",
+    "shared_preferences",
+    "flutter_secure_storage",
+    "geolocator",
+    "url_launcher"
+  ],
+  "routing": {
+    "type": "named-hash-routes",
+    "entryFile": "lib/app/router/app_router.dart",
+    "routes": [
+      { "name": "splash", "path": "/" },
+      { "name": "onboarding", "path": "/onboarding" },
+      { "name": "schoolLogin", "path": "/school-login" },
+      { "name": "completeProfile", "path": "/complete-profile" },
+      { "name": "home", "path": "/home" },
+      { "name": "myReports", "path": "/reports" },
+      { "name": "reportType", "path": "/reports/new/type" },
+      { "name": "reportStory", "path": "/reports/new/story" },
+      { "name": "reportReview", "path": "/reports/new/review" },
+      { "name": "reportSent", "path": "/reports/new/sent" },
+      { "name": "reportDetail", "path": "/reports/detail" },
+      { "name": "panic", "path": "/panic" },
+      { "name": "panicActive", "path": "/panic/active" },
+      { "name": "camera", "path": "/camera" },
+      { "name": "profile", "path": "/profile" },
+      { "name": "appPermissions", "path": "/profile/permissions" },
+      { "name": "emergencyContacts", "path": "/profile/contacts" },
+      { "name": "addContact", "path": "/profile/contacts/form" },
+      { "name": "curhai", "path": "/curhai" },
+      { "name": "schoolSummary", "path": "/school-summary" }
+    ]
+  },
+  "features": [
+    {
+      "id": "auth-onboarding",
+      "name": "Splash, Onboarding, School Login & Biodata",
+      "description": "Alur pembuka dengan maskot burung hantu, onboarding 2 slide, autentikasi akun siswa/Google/Guru BK khusus (bk@kitatemani.id), serta pengisian biodata wajib sebelum masuk Beranda.",
+      "files": [
+        "lib/main.dart",
+        "lib/bootstrap.dart",
+        "lib/app/app.dart",
+        "lib/app/router/routes.dart",
+        "lib/app/router/app_router.dart",
+        "lib/features/auth/domain/entities/student_profile.dart",
+        "lib/features/auth/domain/repositories/auth_repository.dart",
+        "lib/features/auth/data/repositories/auth_repository_impl.dart",
+        "lib/features/auth/presentation/controllers/auth_controller.dart",
+        "lib/features/auth/presentation/screens/splash_screen.dart",
+        "lib/features/auth/presentation/screens/onboarding_screen.dart",
+        "lib/features/auth/presentation/screens/school_login_screen.dart",
+        "lib/features/auth/presentation/screens/complete_profile_screen.dart"
+      ]
+    },
+    {
+      "id": "home-mood-education",
+      "name": "Beranda, Daily Mood Check-in & Kartu Edukasi Pastel",
+      "description": "Beranda terpusat maxWidth 720 bebas data dummy dengan banner laporan privat, quick action Curhai/Kamera, mood check-in harian interaktif tersimpan lokal, preview laporan kosong berilustrasi, dan 4 kartu edukasi anti-bullying pastel.",
+      "files": [
+        "lib/app/theme/app_colors.dart",
+        "lib/app/theme/app_text_styles.dart",
+        "lib/app/theme/app_theme.dart",
+        "lib/core/widgets/main_shell_scaffold.dart",
+        "lib/core/widgets/kita_illustration.dart",
+        "lib/core/services/local_preferences_service.dart",
+        "lib/features/home/presentation/screens/home_screen.dart",
+        "lib/l10n/l10n.dart"
+      ]
+    },
+    {
+      "id": "anonymous-reporting",
+      "name": "Pelaporan Anonim 3 Langkah, Laporanku & Detail Laporan",
+      "description": "Alur pelaporan 3 langkah (Jenis beraksen pastel, Cerita + lampiran/link EXIF-dihapus, Tinjau) hingga layar Terkirim dengan kode unik KT-XXXX-XXXX, filter riwayat, dan pelacak 4 tahap StatusStepper.",
+      "files": [
+        "lib/core/widgets/status_stepper.dart",
+        "lib/core/widgets/code_highlighter.dart",
+        "lib/core/widgets/app_button.dart",
+        "lib/features/report/domain/entities/report.dart",
+        "lib/features/report/domain/repositories/report_repository.dart",
+        "lib/features/report/domain/usecases/submit_report.dart",
+        "lib/features/report/data/models/report_dto.dart",
+        "lib/features/report/data/datasources/report_remote_data_source.dart",
+        "lib/features/report/data/repositories/report_repository_impl.dart",
+        "lib/features/report/presentation/controllers/submit_report_controller.dart",
+        "lib/features/report/presentation/screens/report_type_screen.dart",
+        "lib/features/report/presentation/screens/report_story_screen.dart",
+        "lib/features/report/presentation/screens/report_review_screen.dart",
+        "lib/features/report/presentation/screens/report_sent_screen.dart",
+        "lib/features/report/presentation/screens/my_reports_screen.dart",
+        "lib/features/report/presentation/screens/report_detail_screen.dart",
+        "lib/features/report/presentation/widgets/evidence_preview.dart",
+        "lib/features/report/presentation/widgets/report_step_indicator.dart"
+      ]
+    },
+    {
+      "id": "curhai-companion",
+      "name": "CurhAI Pendamping Emosional AI & Maskot Burung Hantu",
+      "description": "Percakapan empatik bersama maskot OwlMascot (warm, listening, thinking, breathing, reassuring), rendering Markdown bold tanpa bintang mentah, latihan napas 1 menit, dan kartu eskalasi krisis merah tanpa maskot.",
+      "files": [
+        "lib/core/widgets/owl_mascot.dart",
+        "lib/features/curhai/domain/entities/chat_message.dart",
+        "lib/features/curhai/domain/repositories/curhai_repository.dart",
+        "lib/features/curhai/data/repositories/curhai_repository_impl.dart",
+        "lib/features/curhai/presentation/controllers/curhai_controller.dart",
+        "lib/features/curhai/presentation/screens/curhai_screen.dart",
+        "lib/features/curhai/presentation/widgets/markdown_chat_text.dart",
+        "supabase/functions/curhai-chat/index.ts"
+      ]
+    },
+    {
+      "id": "panic-sos",
+      "name": "Tombol Darurat (Panic Button) & WhatsApp SOS Terstruktur",
+      "description": "Aktivasi tahan 2 detik + grace period 5 detik (bisa batal atau kirim segera) langsung menuju Panic Status dengan pesan SOS lengkap (nama, kelas, sekolah, koordinat/tautan peta), salin pesan, refresh GPS, kirim WhatsApp, dan akhiri aman tanpa 112 maupun chip area sekitar.",
+      "files": [
+        "lib/features/panic/domain/entities/panic_outcome.dart",
+        "lib/features/panic/domain/usecases/activate_panic.dart",
+        "lib/features/panic/data/emergency_launcher.dart",
+        "lib/features/panic/presentation/controllers/panic_controller.dart",
+        "lib/features/panic/presentation/screens/panic_button_screen.dart",
+        "lib/features/panic/presentation/screens/panic_status_screen.dart",
+        "lib/core/services/location_service.dart",
+        "lib/core/services/audio_recorder_service.dart",
+        "lib/core/services/sms_sender.dart",
+        "supabase/functions/panic-notify/index.ts"
+      ]
+    },
+    {
+      "id": "emergency-contacts",
+      "name": "Kontak Darurat & Penetapan Kontak Utama",
+      "description": "Manajemen kontak darurat hingga 5 kontak (tambah, ubah, hapus, aktif/nonaktif, jadikan kontak utama) lengkap dengan validasi dan ilustrasi empty state penjaga.",
+      "files": [
+        "lib/features/emergency_contacts/domain/entities/emergency_contact.dart",
+        "lib/features/emergency_contacts/domain/repositories/emergency_contact_repository.dart",
+        "lib/features/emergency_contacts/data/repositories/emergency_contact_repository_impl.dart",
+        "lib/features/emergency_contacts/presentation/controllers/emergency_contacts_controller.dart",
+        "lib/features/emergency_contacts/presentation/screens/emergency_contacts_screen.dart",
+        "lib/features/emergency_contacts/presentation/screens/add_contact_screen.dart"
+      ]
+    },
+    {
+      "id": "profile-privacy-permissions",
+      "name": "Profil Pastel, Kesiapan Darurat, Izin Aplikasi & Mode Samar",
+      "description": "Ringkasan statistik pastel (Laporan, Kontak Aktif, Hari Aman), checklist kesiapan darurat, layar Izin Aplikasi aman navigasi balik (canPop == false fallback), serta switch Mode Samar yang menyamarkan Beranda.",
+      "files": [
+        "lib/features/profile/presentation/screens/profile_screen.dart",
+        "lib/features/profile/presentation/screens/app_permissions_screen.dart",
+        "lib/core/services/permission_service.dart"
+      ]
+    },
+    {
+      "id": "camera-documentation",
+      "name": "Kamera Dokumentasi Bukti & Analisis Gambar AI",
+      "description": "Antarmuka kamera langsung full-screen bebas ilustrasi dummy dengan pratinjau hasil, penghapusan EXIF, dan analisis indikasi visual awal oleh Edge Function analyze-image.",
+      "files": [
+        "lib/features/camera/presentation/screens/camera_screen.dart",
+        "lib/core/services/media_service.dart",
+        "supabase/functions/analyze-image/index.ts"
+      ]
+    },
+    {
+      "id": "counselor-panel",
+      "name": "Panel Guru BK & Rangkuman Tren Perundungan Sekolah",
+      "description": "Dasbor khusus peran guru_bk/wali_kelas untuk memantau laporan masuk, memperbarui status tindak lanjut, memantau panic_events aktif, dan menghasilkan ringkasan AI teragregasi.",
+      "files": [
+        "lib/features/school_summary/presentation/screens/school_summary_screen.dart",
+        "lib/core/supabase/supabase_providers.dart",
+        "lib/core/widgets/kitatemani_widgets.dart",
+        "supabase/functions/school-summary/index.ts"
+      ]
+    }
+  ],
+  "apis": [
+    {
+      "kind": "edge_function",
+      "method": "POST",
+      "endpoint": "/functions/v1/curhai-chat",
+      "file": "supabase/functions/curhai-chat/index.ts",
+      "request": "{ messages: [{ role, content }] }",
+      "response": "{ reply, risk_level, disclaimer }"
+    },
+    {
+      "kind": "edge_function",
+      "method": "POST",
+      "endpoint": "/functions/v1/analyze-image",
+      "file": "supabase/functions/analyze-image/index.ts",
+      "request": "{ image_base64 }",
+      "response": "{ indications, disclaimer, model }"
+    },
+    {
+      "kind": "edge_function",
+      "method": "POST",
+      "endpoint": "/functions/v1/panic-notify",
+      "file": "supabase/functions/panic-notify/index.ts",
+      "request": "{ lat, lng, accuracy, location_label, student_name, class_name, school_slug, message_text, contact_deliveries }",
+      "response": "{ ack, event_id, received_at, location }"
+    },
+    {
+      "kind": "edge_function",
+      "method": "POST",
+      "endpoint": "/functions/v1/school-summary",
+      "file": "supabase/functions/school-summary/index.ts",
+      "request": "{ school_slug, period }",
+      "response": "{ summary: { risk_cases, online_cases, total_reports, top_location, summary_text, recommendation, generated_at } }"
+    },
+    {
+      "kind": "rpc",
+      "name": "upsert_my_profile",
+      "description": "Menyimpan atau memperbarui profil pengguna dan sinkronisasi staf Guru BK/Wali Kelas."
+    },
+    {
+      "kind": "rpc",
+      "name": "submit_report",
+      "description": "Menyimpan laporan perundungan secara idempoten (p_idempotency_key) dan mengembalikan kode KT-XXXX-XXXX."
+    },
+    {
+      "kind": "rpc",
+      "name": "get_my_reports",
+      "description": "Mengambil daftar laporan milik pelapor berdasarkan kode atau sesi."
+    },
+    {
+      "kind": "rpc",
+      "name": "get_school_reports",
+      "description": "Mengambil seluruh laporan sekolah teragregasi khusus staf Guru BK."
+    },
+    {
+      "kind": "rpc",
+      "name": "get_report_detail",
+      "description": "Mengambil detail laporan beserta timeline status dan lampiran."
+    },
+    {
+      "kind": "rpc",
+      "name": "advance_report_status",
+      "description": "Memperbarui status penanganan laporan (diterima -> ditinjau -> tindak_lanjut -> selesai)."
+    },
+    {
+      "kind": "rpc",
+      "name": "send_report_message",
+      "description": "Mengirim pesan tindak lanjut dan memicu notifikasi pembaruan laporan."
+    },
+    {
+      "kind": "rpc",
+      "name": "resolve_panic_event",
+      "description": "Menandai sesi darurat panic_events selesai saat pengguna menekan Saya sudah aman."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "status": "ready",
+  "type": "frontend",
+  "scope": "codebase",
+  "projectName": "KitaTemani",
+  "framework": "flutter-web",
+  "localPort": 8089,
+  "localEndpoint": "http://localhost:8089",
+  "serverMode": "development",
+  "credentialSource": "env:TESTSPRITE_API_KEY",
+  "prdPath": "testsprite_tests/standard_prd.json",
+  "codeSummaryPath": "testsprite_tests/tmp/code_summary.json",
+  "frontendTestPlanPath": "testsprite_tests/testsprite_frontend_test_plan.json",
+  "backendTestPlanPath": "testsprite_tests/testsprite_backend_test_plan.json",
+  "sourcePrdPath": "md/Product Requirements Document (PRD) KitaTemani.md",
+  "executionArgs": {
+    "baseUrl": "http://localhost:8089",
+    "routingMode": "hash",
+    "hashPrefix": "#/",
+    "flutterSemanticsSelector": "flt-semantics-placeholder",
+    "initialRenderWaitMs": 3000,
+    "headless": true,
+    "viewports": [
+      {
+        "name": "desktop",
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "buildCommand": "flutter build web --dart-define-from-file=env/dev.json",
+    "serveCommand": "python -m http.server 8089 --directory build/web",
+    "localUnitCommand": "flutter test test/testsprite_suite_test.dart",
+    "testAccountPresets": {
+      "counselorEmail": "bk@kitatemani.id",
+      "defaultSchoolSlug": "sman1-nusantara"
+    }
+  }
+}

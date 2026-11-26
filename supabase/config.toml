@@ -1,0 +1,50 @@
+project_id = "kitatemani"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1"
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "id.kitatemani://login-callback"
+additional_redirect_urls = ["https://127.0.0.1:3000", "id.kitatemani://login-callback"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+enable_anonymous_sign_ins = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+
+# Token validation is enforced inside _shared/supabase.ts (auth.getUser()) so modern sb_publishable/ECC tokens work smoothly.
+[functions.curhai-chat]
+verify_jwt = false
+
+[functions.analyze-image]
+verify_jwt = false
+
+[functions.panic-notify]
+verify_jwt = false
+
+[functions.school-summary]
+verify_jwt = false

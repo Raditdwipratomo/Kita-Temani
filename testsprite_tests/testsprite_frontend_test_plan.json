@@ -1,0 +1,308 @@
+{
+  "projectName": "KitaTemani",
+  "type": "frontend",
+  "baseUrl": "http://localhost:8089",
+  "viewports": [
+    { "name": "desktop", "width": 1280, "height": 800 },
+    { "name": "mobile", "width": 390, "height": 844 }
+  ],
+  "testCases": [
+    {
+      "id": "TC001",
+      "title": "SplashScreen & 2-Slide Onboarding menampilkan Maskot Burung Hantu bebas clipart",
+      "description": "Memverifikasi SplashScreen menampilkan branding KitaTemani + OwlMascot lalu mengarahkan ke Onboarding 2 slide bermaskot owl (tanpa clipart lama) dan dapat lanjut ke halaman Login.",
+      "category": "onboarding",
+      "priority": "High",
+      "route": "/#/",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Penyimpanan lokal bersih (pengguna baru)"],
+      "steps": [
+        { "type": "action", "description": "Buka http://localhost:8089/#/ dan tunggu render Flutter web selesai." },
+        { "type": "assertion", "description": "Verifikasi branding 'KitaTemani', subjudul 'Teman amanmu di sekolah', dan maskot OwlMascot tampil tanpa gambar clipart lama." },
+        { "type": "action", "description": "Lanjut ke http://localhost:8089/#/onboarding pada Slide 1 lalu tekan tombol lanjut ke Slide 2." },
+        { "type": "assertion", "description": "Verifikasi Slide 1 dan Slide 2 sama-sama merender OwlMascot (reassuring dan warm) dengan tata letak rapi tanpa overflow." }
+      ]
+    },
+    {
+      "id": "TC002",
+      "title": "Login Siswa cepat mengarahkan ke Lengkapi Biodata sebelum Beranda",
+      "description": "Memverifikasi alur 'Masuk cepat sebagai Siswa tanpa sandi' mewajibkan pengisian biodata (nama lengkap dan kelas) sebelum masuk Beranda serta menyimpan profil siswa.",
+      "category": "authentication",
+      "priority": "High",
+      "route": "/#/school-login",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Pengguna belum login atau sesi lokal bersih"],
+      "steps": [
+        { "type": "action", "description": "Buka http://localhost:8089/#/school-login dan pastikan kartu sambutan 'Ruang amanmu di sekolah' serta kontainer maxWidth 520 tampil terpusat." },
+        { "type": "action", "description": "Klik 'Masuk cepat sebagai Siswa tanpa sandi'." },
+        { "type": "assertion", "description": "Verifikasi aplikasi mengarah ke '/complete-profile' (Lengkapi Biodata)." },
+        { "type": "action", "description": "Isi nama lengkap dan kelas, lalu tekan tombol simpan untuk melanjutkan." },
+        { "type": "assertion", "description": "Verifikasi aplikasi berpindah ke Beranda ('/#/home') dengan nama siswa sesuai input." }
+      ]
+    },
+    {
+      "id": "TC003",
+      "title": "Login akun khusus Guru BK membuka akses Panel Guru BK",
+      "description": "Memverifikasi masuk dengan email staf khusus bk@kitatemani.id mengaktifkan peran Guru BK dan menampilkan kartu akses 'Panel Guru BK & Insight AI' di Beranda dan Profil.",
+      "category": "authentication",
+      "priority": "High",
+      "route": "/#/school-login",
+      "viewports": ["1280x800"],
+      "preconditions": ["Berada di halaman /#/school-login"],
+      "steps": [
+        { "type": "action", "description": "Masukkan 'bk@kitatemani.id' beserta kata sandi valid pada form Masuk lalu klik tombol 'Masuk'." },
+        { "type": "assertion", "description": "Verifikasi pengguna diarahkan ke Beranda dan muncul menu/banner 'Panel Guru BK & Insight AI'." },
+        { "type": "action", "description": "Buka 'Panel Guru BK & Insight AI' (/school-summary)." },
+        { "type": "assertion", "description": "Verifikasi dasbor ringkasan kasus sekolah terbuka tanpa error console dan tanpa mengekspos data pribadi siswa." }
+      ]
+    },
+    {
+      "id": "TC004",
+      "title": "Beranda bersih dari data dummy & menampilkan 4 kartu edukasi pastel editorial",
+      "description": "Memverifikasi Beranda awal bebas dari data dummy ('Maya', 'XI-2', 'KT-8F3Q-M7ZK'), menjaga lencana OwlMascot di Curhai, dan menampilkan 4 kartu 'Kenali bullying' berilustrasi SVG editorial.",
+      "category": "ui-ux",
+      "priority": "High",
+      "route": "/#/home",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Berada di /#/home tanpa mode samar aktif"],
+      "steps": [
+        { "type": "action", "description": "Buka http://localhost:8089/#/home pada viewport 1280x800 dan 390x844." },
+        { "type": "assertion", "description": "Pastikan teks 'Maya', 'XI-2', dan 'KT-8F3Q-M7ZK' tidak ditemukan, sedangkan 'Privat & rahasia. Ditinjau Guru BK.' dan 'Buat laporan' tampil jelas." },
+        { "type": "action", "description": "Scroll ke bawah menuju bagian 'Kenali bullying' dan geser carousel horizontal hingga kartu ke-4." },
+        { "type": "assertion", "description": "Verifikasi terdapat 4 kartu pastel bertema editorial ('Batas Sehat', 'Teman Peduli', 'Aman Online', 'Rawat Diri') beserta ilustrasi SVG bersih." },
+        { "type": "action", "description": "Ketuk salah satu kartu edukasi untuk membuka bottom sheet detail bacaan." },
+        { "type": "assertion", "description": "Pastikan modal detail artikel tampil dengan ilustrasi, isi lengkap, dan dapat ditutup kembali dengan mulus." }
+      ]
+    },
+    {
+      "id": "TC005",
+      "title": "Daily Mood Check-in interaktif & transisi ke CurhAI",
+      "description": "Memverifikasi pemilihan suasana hati ('Lagi cemas') menampilkan pesan dukungan empatik, persisten secara lokal, dan tombol 'Cerita di Curhai' membuka tab CurhAI.",
+      "category": "functional",
+      "priority": "High",
+      "route": "/#/home",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Mode Samar dalam keadaan mati"],
+      "steps": [
+        { "type": "action", "description": "Temukan kartu 'Gimana perasaanmu hari ini?' di Beranda dan klik chip 'Lagi cemas'." },
+        { "type": "assertion", "description": "Verifikasi chip 'Lagi cemas' tersorot warna amber dan muncul pesan dukungan 'Tarik napas pelan dulu yuk. Kamu nggak harus menanggung rasa cemas ini sendirian.' beserta tombol 'Cerita di Curhai'." },
+        { "type": "action", "description": "Klik tombol 'Cerita di Curhai'." },
+        { "type": "assertion", "description": "Verifikasi tab aktif berpindah ke halaman CurhAI dengan header dan maskot burung hantu." }
+      ]
+    },
+    {
+      "id": "TC006",
+      "title": "Mode Samar menyembunyikan Mood Check-in & lencana OwlMascot di Beranda",
+      "description": "Memverifikasi pengaktifan 'Mode samar' di Profil menyamarkan Beranda ke 'Catatan Belajar Harian', menyembunyikan 'Gimana perasaanmu hari ini?', dan menyembunyikan lencana OwlMascot.",
+      "category": "privacy-security",
+      "priority": "High",
+      "route": "/#/home",
+      "viewports": ["390x844"],
+      "preconditions": ["Berada di /#/home dengan navigasi bawah terlihat"],
+      "steps": [
+        { "type": "action", "description": "Buka tab 'Profil' di navigasi bawah, scroll ke 'PENGATURAN KESELAMATAN', dan aktifkan switch 'Mode samar'." },
+        { "type": "action", "description": "Kembali ke tab 'Beranda'." },
+        { "type": "assertion", "description": "Verifikasi sapaan berubah menjadi 'Catatan Belajar Harian', widget 'Gimana perasaanmu hari ini?' tidak tampil, dan OwlMascot pada kartu Curhai disembunyikan." }
+      ]
+    },
+    {
+      "id": "TC007",
+      "title": "Alur lengkap Laporan Bullying 3 langkah hingga kode tiket KT-",
+      "description": "Memverifikasi alur penuh pelaporan anonim dari pemilihan jenis (beraksen pastel), tanggal & lokasi, narasi kejadian + link bukti, tinjauan rahasia, hingga layar Laporan Terkirim berilustrasi.",
+      "category": "functional",
+      "priority": "High",
+      "route": "/#/reports/new/type",
+      "viewports": ["390x844", "1280x800"],
+      "preconditions": ["Berada di Beranda atau langsung di /#/reports/new/type"],
+      "steps": [
+        { "type": "action", "description": "Buka halaman Jenis Laporan, pilih kategori 'Verbal', ketuk 'Kantin', lalu tekan 'Lanjut ke Cerita Kejadian'." },
+        { "type": "assertion", "description": "Verifikasi layar 'Ceritakan kejadiannya' terbuka lengkap dengan prompt chip bantuan dan pengingat 'EXIF Dihapus'." },
+        { "type": "action", "description": "Isi kronologi kejadian pada kolom cerita, tambahkan link bukti opsional, lalu tekan 'Tinjau laporan'." },
+        { "type": "assertion", "description": "Verifikasi layar 'Tinjau laporan' (Langkah 3 dari 3) menampilkan ringkasan jenis, lokasi, serta banner 'DIJAGA RAHASIA'." },
+        { "type": "action", "description": "Tekan tombol 'Kirim Laporan Sekarang'." },
+        { "type": "assertion", "description": "Verifikasi layar 'Laporan terkirim!' menampilkan ilustrasi perayaan scene_report_sent.svg, nomor tiket berawalan 'KT-', StatusStepper tahap 1, serta tombol 'Salin tiket' dan 'Pantau laporan'." }
+      ]
+    },
+    {
+      "id": "TC008",
+      "title": "Guardrail validasi formulir Laporan & penghapusan tautan bukti",
+      "description": "Memverifikasi pelapor dapat berpindah maju/mundur antar langkah tanpa kehilangan draf narasi, dapat menghapus tautan/lampiran sebelum kirim, serta tidak dapat memicu submit ganda saat loading.",
+      "category": "error-handling",
+      "priority": "Medium",
+      "route": "/#/reports/new/type",
+      "viewports": ["390x844"],
+      "preconditions": ["Sedang berada pada alur pelaporan baru"],
+      "steps": [
+        { "type": "action", "description": "Pada layar Jenis Laporan biarkan minimal 1 kategori terpilih lalu lanjut ke Langkah 2 ('Tinjau laporan' -> kembali -> isi prompt 'Siapa saja yang terlibat?' -> kembali ke Jenis)." },
+        { "type": "assertion", "description": "Verifikasi teks cerita tetap tersimpan pada state controller dan tidak hilang saat navigasi Kembali." },
+        { "type": "action", "description": "Isi kolom link bukti dengan URL uji lalu ketuk ikon hapus (close) pada chip lampiran tautan." },
+        { "type": "assertion", "description": "Verifikasi chip tautan langsung menghilang dan field tautan menjadi kosong." }
+      ]
+    },
+    {
+      "id": "TC009",
+      "title": "Laporanku: Empty State berilustrasi, Filter tab & Detail Laporan",
+      "description": "Memverifikasi halaman Laporanku menampilkan empty state scene_empty_reports.svg dan CTA 'Buat laporan pertama' saat kosong, serta menampilkan kartu laporan dan Detail Laporan + StatusStepper setelah mengirim laporan.",
+      "category": "functional",
+      "priority": "High",
+      "route": "/#/reports",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Dapat dimulai dari kondisi kosong maupun setelah TC007"],
+      "steps": [
+        { "type": "action", "description": "Buka tab 'Laporan' (atau /#/reports) saat belum ada laporan." },
+        { "type": "assertion", "description": "Verifikasi ilustrasi scene_empty_reports.svg, teks 'Belum ada laporan yang dibuat', dan tombol '+ Buat laporan pertama' terpusat dalam maxWidth 720." },
+        { "type": "action", "description": "Uji tab filter 'Semua', 'Diproses', dan 'Selesai', lalu buka satu laporan yang sudah tersimpan menuju Detail Laporan." },
+        { "type": "assertion", "description": "Verifikasi Detail Laporan menampilkan kode KT-, 'STATUS TINDAK LANJUT' dengan 4 langkah stepper, serta tanpa antarmuka chat real-time yang tidak semestinya." }
+      ]
+    },
+    {
+      "id": "TC010",
+      "title": "CurhAI Empty State, Formatting Markdown Bold tanpa bintang & bahasa natural",
+      "description": "Memverifikasi CurhAI bebas avatar robot lama dan jargon teknis ('Qwen'/'OpenRouter'), merender daftar poin bold Markdown tanpa karakter '**' mentah, dan menyembunyikan chip laporan sebelum user mengirim pesan.",
+      "category": "functional",
+      "priority": "High",
+      "route": "/#/curhai",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Obrolan CurhAI masih kosong"],
+      "steps": [
+        { "type": "action", "description": "Buka tab CurhAI (atau /#/curhai) dalam keadaan belum ada pesan." },
+        { "type": "assertion", "description": "Verifikasi teks 'Mulai bercerita dengan CurhAI', maskot OwlMascot ukuran besar, tidak ada teks 'Qwen'/'OpenRouter', dan chip 'Buat laporan dari obrolan ini' masih tersembunyi." },
+        { "type": "action", "description": "Kirim pesan pemula atau cerita singkat yang menghasilkan balasan berpoin Markdown '**Langkah awal.** Penjelasan...'." },
+        { "type": "assertion", "description": "Verifikasi gelembung balasan menampilkan OwlMascot.listening (28px), format teks tebal ter-render rapi tanpa string '**' mentah, dan chip 'Buat laporan dari obrolan ini' muncul." }
+      ]
+    },
+    {
+      "id": "TC011",
+      "title": "CurhAI Latihan Napas 1 Menit & animasi OwlMood.breathing",
+      "description": "Memverifikasi pil 'Latihan napas' membuka dialog terpadu berisi panduan 4-4-6 detik, timer durasi berjalan, dan OwlMascot ekspresi breathing yang memicu pesan tindak lanjut setelah selesai.",
+      "category": "ui-ux",
+      "priority": "Medium",
+      "route": "/#/curhai",
+      "viewports": ["390x844"],
+      "preconditions": ["Berada di layar CurhAI"],
+      "steps": [
+        { "type": "action", "description": "Ketuk pil 'Latihan napas' di bagian bawah layar CurhAI." },
+        { "type": "assertion", "description": "Verifikasi dialog 'Latihan napas 1 menit' muncul menampilkan OwlMascot mood breathing, teks fase 'Tarik napas pelan…', dan panduan 3 langkah." },
+        { "type": "action", "description": "Ketuk tombol selesai pada dialog latihan napas." },
+        { "type": "assertion", "description": "Verifikasi dialog tertutup dan pesan tenang terkirim ke percakapan CurhAI." }
+      ]
+    },
+    {
+      "id": "TC012",
+      "title": "Deteksi Krisis CurhAI menampilkan Kartu Krisis merah (tanpa maskot) & reset obrolan",
+      "description": "Memverifikasi input berindikasi krisis memunculkan banner merah 'Bicara dengan orang sekarang' tanpa maskot di dalamnya, dan tombol 'Mulai obrolan baru' mereset state krisis secara bersih.",
+      "category": "privacy-security",
+      "priority": "High",
+      "route": "/#/curhai",
+      "viewports": ["390x844"],
+      "preconditions": ["Berada di layar CurhAI"],
+      "steps": [
+        { "type": "action", "description": "Ketik pesan mengandung kata kunci bahaya seperti 'aku takut sekali dan dipukuli terus' lalu kirim." },
+        { "type": "assertion", "description": "Verifikasi banner merah 'Bicara dengan orang sekarang' muncul dengan ajakan menuju Tombol SOS / laporan dan tidak memuat widget OwlMascot di dalam kartu merah tersebut." },
+        { "type": "action", "description": "Ketuk tombol refresh dengan tooltip 'Mulai obrolan baru' pada header." },
+        { "type": "assertion", "description": "Verifikasi banner merah krisis hilang, riwayat pesan dibersihkan, dan kembali ke empty state aman." }
+      ]
+    },
+    {
+      "id": "TC013",
+      "title": "Panic Button tahan 2 detik, batal masa tenggang 5 detik & kirim cepat",
+      "description": "Memverifikasi Tombol Darurat bebas kontak dummy, bebas opsi 112, bebas ilustrasi dekoratif, mendukung pembatalan saat countdown 5 detik, dan berpindah cepat ke Panic Status tanpa nge-stuck.",
+      "category": "safety-critical",
+      "priority": "High",
+      "route": "/#/panic",
+      "viewports": ["390x844"],
+      "preconditions": ["Menekan tombol 'Darurat' merah di bottom nav atau membuka /#/panic"],
+      "steps": [
+        { "type": "action", "description": "Buka /#/panic dan periksa daftar kontak yang akan diberi tahu serta elemen visual layar." },
+        { "type": "assertion", "description": "Verifikasi tidak ada nomor darurat 112, tidak ada kontak keluarga dummy, dan tidak ada widget ilustrasi dekoratif KitaIllustration." },
+        { "type": "action", "description": "Tekan dan tahan tombol darurat merah selama 2 detik hingga masuk countdown masa tenggang 5 detik, lalu uji tombol Batal." },
+        { "type": "assertion", "description": "Verifikasi pembatalan kembali ke mode siap tanpa mengirim SOS." },
+        { "type": "action", "description": "Tahan tombol lagi 2 detik lalu ketuk 'Kirim sekarang'." },
+        { "type": "assertion", "description": "Verifikasi aplikasi langsung beralih ke halaman Panic Status ('/#/panic/active') tanpa macet." }
+      ]
+    },
+    {
+      "id": "TC014",
+      "title": "Panic Status menampilkan pratinjau pesan WhatsApp SOS detail tanpa chip area sekitar",
+      "description": "Memverifikasi layar Panic Status menampilkan pratinjau pesan SOS detail (nama, kelas, sekolah, GPS), menyediakan salin/refresh lokasi/kirim WhatsApp, tidak memiliki chip area sekitar atau opsi 112, dan dapat diakhiri aman.",
+      "category": "safety-critical",
+      "priority": "High",
+      "route": "/#/panic/active",
+      "viewports": ["390x844"],
+      "preconditions": ["Masuk ke /#/panic/active melalui Panic Button"],
+      "steps": [
+        { "type": "action", "description": "Periksa pratinjau pesan SOS dan tombol aksi di layar /#/panic/active." },
+        { "type": "assertion", "description": "Verifikasi pratinjau pesan memuat identitas siswa & tautan GPS, tidak ada tombol 'Hubungi 112', dan tidak ada chip lokasi sekitar." },
+        { "type": "action", "description": "Ketuk tombol salin pesan darurat lalu ketuk 'Saya sudah aman'." },
+        { "type": "assertion", "description": "Verifikasi snackbar salin pesan muncul dan dialog konfirmasi mengakhiri mode darurat bekerja hingga keluar kembali ke Beranda." }
+      ]
+    },
+    {
+      "id": "TC015",
+      "title": "Kontak Darurat: Empty state berilustrasi, validasi form, CRUD & Kontak Utama",
+      "description": "Memverifikasi halaman Kontak Darurat menampilkan ilustrasi scene_guardian_contacts.svg saat kosong, validasi form kosong menolak simpan, serta tambah/jadikan utama/hapus kontak berjalan normal.",
+      "category": "functional",
+      "priority": "High",
+      "route": "/#/profile/contacts",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Daftar kontak darurat awal bersih tanpa kontak dummy"],
+      "steps": [
+        { "type": "action", "description": "Buka /#/profile/contacts." },
+        { "type": "assertion", "description": "Verifikasi empty state menampilkan ilustrasi scene_guardian_contacts.svg dan teks bebas kontak dummy." },
+        { "type": "action", "description": "Ketuk tombol tambah kontak untuk membuka /#/profile/contacts/form lalu klik 'Simpan kontak' dengan kolom kosong." },
+        { "type": "assertion", "description": "Verifikasi muncul peringatan 'Nama dan nomor HP wajib diisi' tanpa menghalangi tombol 'Simpan kontak' dan tetap di form." },
+        { "type": "action", "description": "Isi nomor kurang dari 8 digit lalu klik 'Simpan kontak' untuk menguji guardrail format nomor." },
+        { "type": "assertion", "description": "Verifikasi muncul pesan 'Nomor HP tidak valid (minimal 8 digit)'." },
+        { "type": "action", "description": "Isi nama 'Ibu Sari', nomor '081234567890', aktifkan 'Jadikan Kontak Utama', lalu klik 'Simpan kontak'." },
+        { "type": "assertion", "description": "Verifikasi kontak 'Ibu Sari' tersimpan, tampil dalam daftar Kontak Darurat berlabel Utama, dan memperbarui hitungan kontak aktif." }
+      ]
+    },
+    {
+      "id": "TC016",
+      "title": "Profil pastel mini stat-cards, Checklist Kesiapan & Izin Aplikasi aman kembali",
+      "description": "Memverifikasi Profil merender 3 mini-card statistik pastel (Indigo/Mint/Amber), checklist kesiapan darurat, dan halaman Izin Aplikasi tidak melempar ke Login saat canPop == false.",
+      "category": "navigation",
+      "priority": "Medium",
+      "route": "/#/profile/permissions",
+      "viewports": ["390x844", "1280x800"],
+      "preconditions": ["Pengguna berada di tab Profil atau membuka langsung /#/profile/permissions"],
+      "steps": [
+        { "type": "action", "description": "Buka tab 'Profil' (/home tab 3) dan periksa 3 kartu statistik di bawah profil siswa." },
+        { "type": "assertion", "description": "Verifikasi 3 mini-card pastel ('Laporan' Indigo, 'Kontak Aktif' Mint, 'Hari Aman' Amber) sejajar rapi tanpa teks terpotong." },
+        { "type": "action", "description": "Buka langsung /#/profile/permissions (canPop == false) lalu klik tombol kembali di header atau 'Kembali ke Profil'." },
+        { "type": "assertion", "description": "Verifikasi pengguna diarahkan aman ke tab 'Profil saya', bukan ke halaman Login." }
+      ]
+    },
+    {
+      "id": "TC017",
+      "title": "Kamera langsung full-screen & pratinjau bukti foto bebas EXIF",
+      "description": "Memverifikasi menu Kamera membuka antarmuka kamera full-screen langsung tanpa ilustrasi dummy dan bukti foto yang diunggah menampilkan thumbnail + dialog Preview.",
+      "category": "functional",
+      "priority": "Medium",
+      "route": "/#/camera",
+      "viewports": ["390x844"],
+      "preconditions": ["Berada di Beranda -> ketuk Kamera, atau buka /#/camera"],
+      "steps": [
+        { "type": "action", "description": "Buka /#/camera." },
+        { "type": "assertion", "description": "Verifikasi antarmuka full-screen kamera tampil langsung tanpa kartu ilustrasi dummy dan menampilkan pengingat keselamatan dokumentasi." },
+        { "type": "action", "description": "Uji lampiran bukti foto di laporan dan ketuk thumbnail bukti yang muncul." },
+        { "type": "assertion", "description": "Verifikasi dialog Preview gambar terbuka bersih bersama badge 'EXIF Dihapus'." }
+      ]
+    },
+    {
+      "id": "TC018",
+      "title": "Audit responsif & kebersihan visual seluruh 6 area di Desktop (1280px) & Mobile (390px)",
+      "description": "Memverifikasi konsistensi layout terpusat web (maxWidth 520 pada auth, 720 pada layar utama), ketajaman 8 SVG KitaIllustration, dan nihil RenderFlex overflow pada 1280x800 maupun 390x844.",
+      "category": "ui-ux",
+      "priority": "High",
+      "route": "/#/home",
+      "viewports": ["1280x800", "390x844"],
+      "preconditions": ["Aplikasi web ter-serve di http://localhost:8089"],
+      "steps": [
+        { "type": "action", "description": "Inspeksi berurutan Login (/#/school-login), Beranda (/#/home), Jenis Laporan (/#/reports/new/type), Laporanku (/#/reports), Kontak Darurat (/#/profile/contacts), dan Profil di 1280x800 serta 390x844." },
+        { "type": "assertion", "description": "Pastikan kontainer maxWidth 520 dan 720 terpusat simetris di 1280x800 serta mengisi lebar secara proporsional di 390x844." },
+        { "type": "assertion", "description": "Pastikan 0 error pada Console, 0 HTTP 4xx/5xx aset SVG/font, dan 0 garis kuning-hitam Flutter RenderFlex overflow." }
+      ]
+    }
+  ]
+}

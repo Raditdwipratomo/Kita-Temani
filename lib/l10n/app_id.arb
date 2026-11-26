@@ -1,0 +1,21 @@
+{
+  "@@locale": "id",
+  "appTitle": "KitaTemani",
+  "splashTagline": "Berani Lapor, Berani Peduli",
+  "splashSubtitle": "Tempat aman untuk bercerita, melaporkan bullying, dan mendapatkan dukungan. Kamu tidak sendirian!",
+  "onboardingTitle1": "Laporkan bullying dengan rasa aman",
+  "onboardingBody1": "Laporanmu bersifat privat dan rahasia. Hanya Guru BK terverifikasi yang membacanya—tidak dibuka ke siswa lain.",
+  "onboardingBadge": "Aku ada di sini",
+  "nextButton": "Lanjut",
+  "skipButton": "Lewati",
+  "navHome": "Beranda",
+  "navCurhai": "Curhai",
+  "navReports": "Laporan",
+  "navProfile": "Profil",
+  "homeGreeting": "Halo, {name}!",
+  "homeNotAlone": "Kamu tidak sendirian",
+  "panicHeader": "Tombol Darurat",
+  "panicSentTitle": "Sinyal darurat terkirim",
+  "curhaiTitle": "Curhai",
+  "curhaiDisclaimer": "Curhai bukan pengganti Guru BK. Kalau merasa tidak aman, tekan Tombol Darurat."
+}

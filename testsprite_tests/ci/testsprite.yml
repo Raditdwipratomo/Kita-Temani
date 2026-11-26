@@ -1,0 +1,64 @@
+# Template GitHub Actions CI untuk TestSprite Cloud
+# Salin berkas ini ke .github/workflows/testsprite.yml dan atur secret TESTSPRITE_API_KEY.
+
+name: TestSprite E2E Verification
+
+on:
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  testsprite-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.27.x"
+          channel: stable
+          cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies & run unit/widget suite
+        run: |
+          flutter pub get
+          flutter analyze
+          flutter test test/testsprite_suite_test.dart
+
+      - name: Build Flutter Web
+        run: |
+          if [ -f env/dev.json ]; then
+            flutter build web --dart-define-from-file=env/dev.json
+          else
+            flutter build web
+          fi
+
+      - name: Serve Flutter Web locally
+        run: |
+          python3 -m http.server 8089 --directory build/web &
+          SERVER_PID=$!
+          echo "SERVER_PID=$SERVER_PID" >> "$GITHUB_ENV"
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8089 >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Run TestSprite Cloud Suite
+        if: env.TESTSPRITE_API_KEY != ''
+        env:
+          TESTSPRITE_API_KEY: ${{ secrets.TESTSPRITE_API_KEY }}
+        run: npx -y @testsprite/testsprite-cli@latest ci run --config testsprite_tests/tmp/config.json
+
+      - name: Stop local server
+        if: always() && env.SERVER_PID != ''
+        run: kill "$SERVER_PID" || true

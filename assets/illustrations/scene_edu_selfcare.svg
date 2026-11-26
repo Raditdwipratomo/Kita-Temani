@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 104" width="160" height="104" fill="none">
+  <!-- Soft lilac tranquil halo -->
+  <ellipse cx="80" cy="54" rx="64" ry="38" fill="#F4EEFF" opacity="0.85"/>
+  <circle cx="80" cy="50" r="34" fill="#E2F7EE" opacity="0.55"/>
+
+  <!-- Mint leaf sprigs -->
+  <path d="M 38 74 C 31 67 30 57 38 51 C 42 58 43 66 38 74 Z" fill="#18A96B" opacity="0.5"/>
+  <path d="M 122 74 C 129 67 130 57 122 51 C 118 58 117 66 122 74 Z" fill="#18A96B" opacity="0.5"/>
+
+  <!-- Soft cozy white cloud cushion -->
+  <path d="M 44 88 C 36 88 31 82.5 31 76 C 31 70 36 65 42.5 64.5 C 46 57 54 53 63 54.5 C 67.5 50 74 48 80 48 C 86 48 92.5 50 97 54.5 C 106 53 114 57 117.5 64.5 C 124 65 129 70 129 76 C 129 82.5 124 88 116 88 Z" fill="#FFFFFF" stroke="#E2E6F3" stroke-width="1.2"/>
+
+  <!-- Peaceful closed-eye breathing owl resting on cloud -->
+  <g transform="translate(45, 11) scale(0.58)">
+    <path d="M 27 52 C 19.5 58 18.5 73 23.5 83.5 C 26.5 89.5 33 91 37 86 C 39 83 37 64 33 54 Z" fill="#3F46C2"/>
+    <path d="M 93 52 C 100.5 58 101.5 73 96.5 83.5 C 93.5 89.5 87 91 83 86 C 81 83 83 64 87 54 Z" fill="#3F46C2"/>
+    <path d="M 60 24.5 C 67 24.5 71 22.5 76 19 C 80.5 16 86 17.5 88.5 22 C 91 26.5 91.5 34 94 42 C 98 52 99 66 96 78 C 93 90.5 82 98.5 60 98.5 C 38 98.5 27 90.5 24 78 C 21 66 22 52 26 42 C 28.5 34 29 26.5 31.5 22 C 34 17.5 39.5 16 44 19 C 49 22.5 53 24.5 60 24.5 Z" fill="#585FE6"/>
+    <path d="M 38.5 75.5 C 38.5 63.5 47.5 56 60 56 C 72.5 56 81.5 63.5 81.5 75.5 C 81.5 88.5 72.5 96.5 60 96.5 C 47.5 96.5 38.5 88.5 38.5 75.5 Z" fill="#F3F4FE"/>
+    <path d="M 40.5 65.5 C 46.8 69.8 53.3 71.8 60 71.8 C 66.7 71.8 73.2 69.8 79.5 65.5 C 76.8 60.2 69.2 56 60 56 C 50.8 56 43.2 60.2 40.5 65.5 Z" fill="#E2F7EE"/>
+    <circle cx="46" cy="45.5" r="16.5" fill="#FFFFFF"/>
+    <circle cx="74" cy="45.5" r="16.5" fill="#FFFFFF"/>
+    <path d="M 39.5 44.5 Q 46 50 52.5 44.5" stroke="#1D224A" stroke-width="2.7" stroke-linecap="round"/>
+    <path d="M 67.5 44.5 Q 74 50 80.5 44.5" stroke="#1D224A" stroke-width="2.7" stroke-linecap="round"/>
+    <ellipse cx="36.2" cy="51.5" rx="3.3" ry="2.0" fill="#E2F7EE"/>
+    <ellipse cx="83.8" cy="51.5" rx="3.3" ry="2.0" fill="#E2F7EE"/>
+    <path d="M 60 49.5 C 63.4 49.5 65 51.8 64 54.6 C 63.1 57.2 61.3 59 60 59 C 58.7 59 56.9 57.2 56 54.6 C 55 51.8 56.6 49.5 60 49.5 Z" fill="#FBBF24"/>
+  </g>
+
+  <!-- Gentle floating stars -->
+  <path d="M 30 24 L 31.8 28 L 35.8 29.8 L 31.8 31.6 L 30 35.6 L 28.2 31.6 L 24.2 29.8 L 28.2 28 Z" fill="#8B5CF6" opacity="0.7"/>
+  <circle cx="128" cy="28" r="3" fill="#FBBF24"/>
+  <circle cx="118" cy="18" r="2" fill="#8B5CF6" opacity="0.55"/>
+</svg>

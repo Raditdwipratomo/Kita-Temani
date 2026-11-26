@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "project": "KitaTemani",
+    "version": "1.0.0",
+    "date": "2026-11-22",
+    "prepared_by": "KitaTemani Automated TestSprite Suite"
+  },
+  "product_overview": "KitaTemani adalah aplikasi pencegahan, pendokumentasian, dukungan emosional AI (CurhAI), dan pelaporan perundungan anonim untuk siswa SMP–SMA/SMK di Indonesia. Aplikasi menggabungkan nuansa Soft Playful Pastel dengan ilustrasi editorial burung hantu pada area edukasi serta mempertahankan batas keselamatan tegas tanpa dekorasi pada jalur darurat dan kartu krisis.",
+  "core_goals": [
+    "Menurunkan hambatan psikologis siswa dalam melapor melalui alur laporan anonim 3 langkah tanpa membocorkan identitas atau data dummy.",
+    "Memberikan pendampingan emosional 24/7 yang empatik melalui CurhAI bermaskot OwlMascot dengan formatting Markdown rapi, latihan napas 1 menit, dan eskalasi manusia saat terdeteksi sinyal krisis.",
+    "Menyediakan Tombol Darurat (Panic SOS) satu-alur dengan tahan 2 detik -> masa tenggang 5 detik -> pengiriman pesan WhatsApp terstruktur lengkap (nama, kelas, sekolah, koordinat/tautan lokasi) tanpa fitur 112 maupun chip area sekitar.",
+    "Menyediakan kontrol privasi Mode Samar di Beranda dan edukasi anti-bullying bertema pastel editorial yang bersih di viewport Desktop (1280x800) maupun Mobile (390x844).",
+    "Memberikan visibilitas tindak lanjut kepada Guru BK (bk@kitatemani.id) melalui Panel Guru BK dan ringkasan kondisi sekolah tanpa mengekspos PII siswa ke pihak lain."
+  ],
+  "user_roles": [
+    {
+      "role": "Siswa",
+      "permissions": [
+        "Mengakses Onboarding, Masuk cepat sebagai Siswa tanpa sandi, dan melengkapi biodata wajib.",
+        "Mengisi Daily Mood Check-in dan membaca 4 artikel edukasi pastel di Beranda.",
+        "Mengaktifkan atau menonaktifkan Mode Samar dari Profil.",
+        "Membuat laporan anonim 3 langkah (Jenis, Cerita + lampiran EXIF bersih, Tinjau -> Kode Tiket KT-).",
+        "Menggunakan CurhAI, latihan napas 1 menit, dan memulai laporan dari obrolan.",
+        "Mengelola hingga 5 kontak darurat dan memicu Tombol Darurat / WhatsApp SOS."
+      ]
+    },
+    {
+      "role": "Guru BK / Wali Kelas",
+      "permissions": [
+        "Login dengan email staf khusus (bk@kitatemani.id).",
+        "Mengakses Panel Guru BK & Insight AI dari Beranda maupun Profil.",
+        "Meninjau laporan masuk, memperbarui status penanganan, memantau panic_events, dan melihat ringkasan AI sekolah."
+      ]
+    }
+  ],
+  "key_features": [
+    "Splash & Onboarding 2-slide berilustrasi OwlMascot bebas clipart.",
+    "School Login (maxWidth: 520, kartu sambutan scene_welcome_login.svg, login cepat siswa, dan login khusus Guru BK) + Complete Profile wajib.",
+    "Beranda Soft Playful Pastel (maxWidth: 720, banner laporan privat, quick action Curhai/Kamera, Daily Mood Check-in interaktif tersimpan lokal, preview Laporanku berilustrasi scene_empty_reports.svg, dan 4 kartu edukasi pastel dengan fallback offline).",
+    "Mode Samar menyembunyikan Daily Mood Check-in serta lencana OwlMascot di Beranda dan mengganti sapaan menjadi Catatan Belajar Harian.",
+    "Alur Laporan 3 Langkah (4 kategori aksen pastel Coral/Amber/Lilac/Sky, input tanggal & lokasi, narasi & lampiran link/media EXIF-clean, Tinjau, dan Layar Terkirim dengan scene_report_sent.svg + kode KT-).",
+    "Laporanku dengan filter Semua/Diproses/Selesai, empty state berilustrasi, CTA Buat laporan pertama, dan Detail Laporan dengan StatusStepper 4 tahap.",
+    "CurhAI dengan OwlMascot adaptif sesuai state (warm/listening/thinking/breathing/reassuring), MarkdownChatText bold tanpa bintang mentah, dialog Latihan napas 1 menit, serta Kartu Krisis merah tanpa maskot.",
+    "Tombol Darurat tahan 2 detik + grace period 5 detik (bisa batal atau Kirim sekarang) menuju Panic Status berisi pratinjau pesan WhatsApp detail (nama, kelas, GPS), tombol WhatsApp, Salin pesan, dan dialog Saya sudah aman.",
+    "Kontak Darurat dengan validasi nama/nomor, toggle aktif, jadikan kontak utama, batas maksimal 5 kontak, dan empty state berilustrasi scene_guardian_contacts.svg.",
+    "Profil & Izin Aplikasi dengan 3 kartu statistik pastel (Laporan, Kontak Aktif, Hari Aman), checklist kesiapan darurat, dan tombol kembali aman saat canPop == false."
+  ],
+  "user_flow_summary": [
+    "Alur Onboarding -> Login Siswa -> Lengkapi Biodata -> Beranda -> Cek Mood Harian / Edukasi.",
+    "Alur Beranda -> Buat laporan -> Jenis (Fisik/Verbal/Sosial/Siber) -> Cerita & Bukti -> Tinjau -> Terkirim (KT-) -> Laporanku.",
+    "Alur Beranda/Nav -> CurhAI -> Kirim curhat / Latihan napas / Deteksi krisis -> Buat laporan dari obrolan ini.",
+    "Alur Nav Darurat -> Tahan tombol SOS 2 detik -> Kirim sekarang -> Panic Status -> Kirim/Salin WhatsApp -> Saya sudah aman.",
+    "Alur Profil -> Kontak Darurat -> Tambah/Ubah/Utama -> Profil -> Mode Samar."
+  ],
+  "validation_criteria": [
+    "Zero dummy personal data (tidak ada nama 'Maya', kelas 'XI-2', atau kode 'KT-8F3Q-M7ZK' bawaan sebelum pengguna berinteraksi).",
+    "Zero raw asterisks ('**') pada balasan Markdown CurhAI.",
+    "Zero jargon teknis LLM ('Qwen', 'OpenRouter') pada empty state maupun pesan kesalahan CurhAI.",
+    "Zero opsi '112' dan zero chip area sekitar pada layar Panic Button maupun Panic Status.",
+    "Desktop (1280x800) dan Mobile (390x844) merender maxWidth 720 (utama) / 520 (auth) tanpa RenderFlex overflow atau clipping teks."
+  ],
+  "safety_and_privacy_invariants": [
+    "Dilarang menaruh ilustrasi dekoratif atau elemen playful pada PanicButtonScreen, PanicStatusScreen, CameraScreen, dan di dalam Kartu Krisis merah CurhAI.",
+    "Ketika Mode Samar aktif (isDisguisedMode == true), OwlMascot pada kartu cepat Curhai dan Daily Mood Check-in wajib tersembunyi.",
+    "Izin Aplikasi wajib aman ketika dibuka langsung tanpa riwayat navigasi (canPop == false kembali ke Beranda tab Profil, bukan Login).",
+    "Kartu Krisis merah pada CurhAI wajib reset ketika pengguna menekan 'Mulai obrolan baru'."
+  ]
+}

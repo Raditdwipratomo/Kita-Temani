@@ -1,0 +1,121 @@
+{
+  "projectName": "KitaTemani-Supabase-Backend",
+  "type": "backend",
+  "baseUrl": "${SUPABASE_URL}",
+  "testCases": [
+    {
+      "id": "BTC001",
+      "title": "Edge Function curhai-chat mengembalikan balasan empatik terstruktur beserta disclaimer",
+      "description": "Memverifikasi POST /functions/v1/curhai-chat merespons status 200 dengan JSON berisi reply empatik berbahasa Indonesia, risk_level 'normal' atau 'elevated', dan disclaimer non-medis/non-Guru BK.",
+      "category": "api-functional",
+      "priority": "High",
+      "endpoint": "/functions/v1/curhai-chat",
+      "method": "POST",
+      "preconditions": ["Variabel lingkungan SUPABASE_URL, SUPABASE_ANON_KEY, dan OPENROUTER_API_KEY aktif"],
+      "steps": [
+        { "type": "action", "description": "Kirim request POST /functions/v1/curhai-chat dengan header Authorization Bearer dan body messages berisi keluhan ejekan ringan di sekolah." },
+        { "type": "assertion", "description": "Pastikan status HTTP 200 dengan properti JSON 'reply' tidak kosong, 'risk_level' bernilai 'normal' atau 'elevated', dan 'disclaimer' hadir." }
+      ]
+    },
+    {
+      "id": "BTC002",
+      "title": "Edge Function curhai-chat menaikkan risk_level menjadi crisis pada kata kunci darurat",
+      "description": "Memverifikasi deteksi guardrail risiko tinggi pada curhai-chat mengembalikan risk_level 'crisis' untuk sinyal ancaman fisik berat atau menyakiti diri.",
+      "category": "safety-critical",
+      "priority": "High",
+      "endpoint": "/functions/v1/curhai-chat",
+      "method": "POST",
+      "preconditions": ["Edge Function curhai-chat aktif"],
+      "steps": [
+        { "type": "action", "description": "Kirim POST /functions/v1/curhai-chat berisi pesan krisis seperti ancaman fisik mendesak atau keinginan menyakiti diri." },
+        { "type": "assertion", "description": "Verifikasi respons mengembalikan status 200 dan field 'risk_level' bernilai 'crisis' beserta ajakan menghubungi orang dewasa tepercaya." }
+      ]
+    },
+    {
+      "id": "BTC003",
+      "title": "Edge Function panic-notify mencatat panic_events dengan konteks siswa dan lokasi",
+      "description": "Memverifikasi POST /functions/v1/panic-notify menyimpan payload lokasi GPS, student_name, class_name, school_slug, dan message_text ke tabel panic_events serta memicu notifikasi staf.",
+      "category": "api-functional",
+      "priority": "High",
+      "endpoint": "/functions/v1/panic-notify",
+      "method": "POST",
+      "preconditions": ["Pengguna terautentikasi dengan token JWT valid dan sekolah target ada di tabel schools"],
+      "steps": [
+        { "type": "action", "description": "Kirim POST /functions/v1/panic-notify berisi koordinat lat/lng, accuracy, location_label, student_name, class_name, school_slug, dan message_text." },
+        { "type": "assertion", "description": "Pastikan respons 200 mengandung 'ack': true, 'event_id' UUID valid, timestamp 'received_at', dan data lokasi terverifikasi." }
+      ]
+    },
+    {
+      "id": "BTC004",
+      "title": "Edge Function school-summary mengembalikan ringkasan agregat sekolah tanpa PII pelapor",
+      "description": "Memverifikasi POST /functions/v1/school-summary menghasilkan ringkasan statistik laporan (risk_cases, online_cases, total_reports, top_location, summary_text, recommendation) tanpa membocorkan nama/ID pelapor.",
+      "category": "privacy-security",
+      "priority": "High",
+      "endpoint": "/functions/v1/school-summary",
+      "method": "POST",
+      "preconditions": ["Token JWT akun staf Guru BK/Wali Kelas untuk sekolah 'sman1-nusantara'"],
+      "steps": [
+        { "type": "action", "description": "Kirim POST /functions/v1/school-summary dengan payload { school_slug: 'sman1-nusantara', period: '7d' }." },
+        { "type": "assertion", "description": "Verifikasi respons JSON berisi object 'summary' dengan metrik agregat dan rekomendasi serta nol PII pelapor individu." }
+      ]
+    },
+    {
+      "id": "BTC005",
+      "title": "Edge Function analyze-image mengembalikan indikasi visual awal disertai disclaimer",
+      "description": "Memverifikasi POST /functions/v1/analyze-image memproses payload image_base64 dan mengembalikan array indications beserta disclaimer bukan keputusan final.",
+      "category": "api-functional",
+      "priority": "Medium",
+      "endpoint": "/functions/v1/analyze-image",
+      "method": "POST",
+      "preconditions": ["Token JWT pengguna valid"],
+      "steps": [
+        { "type": "action", "description": "Kirim POST /functions/v1/analyze-image dengan body { image_base64: '<valid_sample_base64>' }." },
+        { "type": "assertion", "description": "Pastikan respons memiliki list 'indications', string 'disclaimer', dan field 'model' sesuai kontrak API." }
+      ]
+    },
+    {
+      "id": "BTC006",
+      "title": "RPC submit_report idempoten terhadap p_idempotency_key dan menghasilkan kode KT-",
+      "description": "Memverifikasi pemanggilan berulang RPC submit_report dengan p_idempotency_key UUID yang sama tidak menduplikasi baris laporan dan selalu mengembalikan kode KT-XXXX-XXXX konsisten.",
+      "category": "database-rpc",
+      "priority": "High",
+      "endpoint": "/rest/v1/rpc/submit_report",
+      "method": "POST",
+      "preconditions": ["Sekolah mitra 'sman1-nusantara' tersedia pada database"],
+      "steps": [
+        { "type": "action", "description": "Panggil RPC submit_report dua kali berturut-turut dengan p_idempotency_key UUID yang identik." },
+        { "type": "assertion", "description": "Verifikasi kedua respons mengembalikan 'id' dan 'code' berformat 'KT-XXXX-XXXX' yang sama persis tanpa baris duplikat." }
+      ]
+    },
+    {
+      "id": "BTC007",
+      "title": "RLS & otorisasi peran pada get_school_reports dan advance_report_status",
+      "description": "Memverifikasi siswa tidak berhak mengubah status tindak lanjut atau membaca laporan siswa lain di sekolah, sementara akun staf Guru BK berhak memajukan status laporan.",
+      "category": "privacy-security",
+      "priority": "High",
+      "endpoint": "/rest/v1/rpc/advance_report_status",
+      "method": "POST",
+      "preconditions": ["Terdapat minimal satu akun siswa biasa dan satu akun staf guru_bk"],
+      "steps": [
+        { "type": "action", "description": "Panggil RPC get_school_reports dan advance_report_status menggunakan token JWT siswa non-staf." },
+        { "type": "assertion", "description": "Verifikasi akses ditolak oleh kebijakan RLS / validasi peran RPC." },
+        { "type": "action", "description": "Ulangi advance_report_status menggunakan token JWT Guru BK sekolah terkait." },
+        { "type": "assertion", "description": "Verifikasi status laporan berhasil bertransisi ('diterima' -> 'ditinjau') beserta entri di report_status_history." }
+      ]
+    },
+    {
+      "id": "BTC008",
+      "title": "RPC resolve_panic_event menutup sesi darurat aktif dan menyimpan jejak audio opsional",
+      "description": "Memverifikasi pemanggilan resolve_panic_event menandai panic_events selesai saat pengguna mengakhiri mode darurat.",
+      "category": "database-rpc",
+      "priority": "Medium",
+      "endpoint": "/rest/v1/rpc/resolve_panic_event",
+      "method": "POST",
+      "preconditions": ["Terdapat satu record panic_events aktif milik pengguna penguji"],
+      "steps": [
+        { "type": "action", "description": "Panggil RPC resolve_panic_event dengan ID event aktif." },
+        { "type": "assertion", "description": "Verifikasi status record panic_events berubah menjadi resolved dan waktu ended_at tercatat." }
+      ]
+    }
+  ]
+}
