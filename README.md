@@ -32,13 +32,12 @@
 
 ## Gambaran Umum & Peran Pengguna
 
-Aplikasi memisahkan antarmuka dan hak akses (*Role-Based Access Control* / RBAC) berdasarkan peran (`UserRole`) di `profiles` dan tabel `staff`:
+Aplikasi memisahkan antarmuka dan hak akses (*Role-Based Access Control* / RBAC) menjadi **2 peran utama** berdasarkan `UserRole` di `profiles` dan tabel `staff`:
 
 | Peran (`wireValue`) | Label UI | Tab Navigasi Utama | Akses & Kemampuan |
 | :--- | :--- | :--- | :--- |
-| `siswa` | Siswa | **Beranda**, **CurhAI**, *(FAB SOS)*, **Laporanku**, **Profil** | Melapor kejadian, mengakses ruang obrolan CurhAI, memicu Tombol Darurat (SOS), mengelola kontak darurat, dan membaca artikel edukasi. |
-| `guru_bk` | Guru BK | **Beranda Konselor**, **Laporan Masuk**, **Ruang Baca**, **Profil** | Melihat & menindaklanjuti seluruh laporan sekolah (tidak dapat melihat laporan sekolah lain), memperbarui status laporan, berdiskusi privat dengan pelapor, memantau *Panic Alert*, melihat *Insight AI Sekolah*, serta CRUD artikel edukasi. |
-| `wali_kelas` | Wali Kelas | **Beranda Konselor**, **Laporan Masuk**, **Ruang Baca**, **Profil** | Hak akses staf sekolah (`isStaff == true`) untuk pemantauan & tindak lanjut bersama Guru BK. |
+| `siswa` | Siswa | **Beranda**, **Curhai**, *(FAB SOS)*, **Laporan**, **Profil** | Melapor kejadian perundungan, mengakses ruang obrolan CurhAI, memicu Tombol Darurat (SOS), mengelola kontak darurat, dan membaca artikel edukasi. |
+| `guru_bk` | Guru BK | **Dashboard**, **Pantau** *(Laporan & Panic Button)*, **Artikel**, **Profil** | Melihat & menindaklanjuti seluruh laporan sekolah beserta identitas pelapor (terisolasi per sekolah), memperbarui status laporan, memantau & menandai selesai *Panic Alert*, melihat *Insight AI Sekolah*, serta CRUD artikel edukasi. |
 
 ---
 
@@ -69,10 +68,10 @@ Alur terstruktur untuk memastikan laporan lengkap, idempoten, dan tahan gangguan
 - **Langkah 3 (`/reports/new/review` & `/reports/new/sent`):**
   - Tinjauan seluruh isian sebelum dikirim menggunakan `idempotency_key` (UUID v4) agar pengiriman ulang tidak membuat duplikat, menghasilkan kode unik `KT-XXXX-XXXX`.
   - **Antrean Offline Otomatis:** Saat internet terputus, laporan tersimpan lokal dan dikirim ulang otomatis ketika koneksi kembali.
-- **Laporanku (`/reports`) & Detail Laporan (`/reports/detail`):**
-  - Filter status (**Semua**, **Dikirim**, **Dibaca**, **Ditindak**, **Selesai**).
+- **Laporanku / Pantau (`/reports`) & Detail Laporan (`/reports/detail`):**
+  - Filter status (**Semua**, **Dikirim**, **Dibaca**, **Ditindak**, **Selesai**); khusus Guru BK dilengkapi 2 tab pemantauan (**Laporan** dan **Panic Button**).
   - Kartu laporan seragam dengan **StatusStepper 4 tahap** (*Dikirim* -> *Dibaca* -> *Ditindak* -> *Selesai*).
-  - Halaman detail menampilkan seluruh field sinkron (cerita kejadian, nama pelaku, nama korban / fallback `"Belum disebutkan"` bila saksi tidak mengisi, dokumen, tautan bukti interaktif, riwayat perubahan status, serta **Diskusi Privat 2-arah** bersama Guru BK).
+  - Halaman detail menampilkan seluruh field sinkron (identitas pelapor, cerita kejadian, nama pelaku, nama korban / fallback `"Belum disebutkan"` bila saksi tidak mengisi, dokumen, tautan bukti interaktif, dan riwayat perubahan status).
 
 ### 4. Tombol Darurat (Panic Button)
 Dirancang untuk respons cepat di situasi berisiko:
@@ -100,8 +99,8 @@ Dirancang untuk respons cepat di situasi berisiko:
 - **Kelola Artikel (`/articles/new`, khusus Staf/Guru BK):** Membuat, menyunting, dan menghapus artikel edukasi (`education_articles`).
 
 ### 8. Profil, Kontak Darurat & Panel Guru BK
-- **Profil Saya (`/profile` & `/profile/edit`):** Ringkasan statistik, kelola avatar (preset ilustrasi/maskot atau unggah foto yang di-resize otomatis ke max 320px), edit biodata sekolah/kelas, status kesiapan **Izin Aplikasi** (`/profile/permissions`), pusat bantuan & hotline **SAPA 129 (KemenPPPA)**, serta tombol keluar akun.
-- **Kontak Darurat (`/profile/contacts` & `/profile/contacts/form`):** Menyimpan hingga maksimal **5 kontak keluarga**, memilih tepat 1 **Kontak Utama**, mengaktifkan/menonaktifkan penerima SMS, dan melakukan uji coba pesan WhatsApp darurat.
+- **Profil Saya (`/profile` & `/profile/edit`):** Ringkasan statistik nyata (*Laporan*, *Selesai*, *Kontak Aktif*), kelola avatar (preset ilustrasi/maskot atau unggah foto yang di-resize otomatis ke max 320px), edit biodata sekolah/kelas, status kesiapan darurat & **Izin Aplikasi** (`/profile/permissions`), pusat bantuan & hotline **SAPA 129 (KemenPPPA)**, serta tombol keluar akun.
+- **Kontak Darurat (`/profile/contacts` & `/profile/contacts/form`):** Menyimpan hingga maksimal **5 kontak keluarga**, memilih tepat 1 **Kontak Utama**, dan mengaktifkan/menonaktifkan penerima pesan darurat.
 - **Insight Sekolah & Panel Guru BK (`/school-summary`):** Ringkasan tren kasus 7 hari tanpa membocorkan identitas pelapor via Edge Function `school-summary`, daftar *Panic Alert* aktif lengkap dengan tombol *Tandai Tertangani*, dan filter laporan masuk sekolah.
 
 ---
@@ -200,14 +199,14 @@ Kita-Temani/
 │       ├── home/                   # Shell tab adaptif Siswa vs Dashboard Konselor
 │       ├── panic/                  # Hold SOS 2s + grace 5s, GPS, rekam audio, SMS, panic-notify, WA/Hubungi
 │       ├── profile/                # Profil, avatar, status izin real-time, SAPA 129
-│       ├── report/                 # Form laporan 3 langkah, antrean offline, Laporanku, Detail & diskusi privat
+│       ├── report/                 # Form laporan 3 langkah, antrean offline, Laporanku, Pantau & Detail Laporan
 │       └── school_summary/         # Insight AI Sekolah 7 hari & manajemen Panic Alert Guru BK
 ├── supabase/
 │   ├── config.toml                 # Konfigurasi Supabase lokal, Auth deep link, Edge Function flags
-│   ├── seed.sql                    # Seed awal sekolah mitra & 3 artikel edukasi
-│   ├── migrations/                 # 10 file migrasi SQL skema, RLS, RPC & update bertahap
+│   ├── seed.sql                    # Seed awal sekolah mitra & 10 artikel edukasi resmi Guru BK
+│   ├── migrations/                 # 13 file migrasi SQL skema, RLS, RPC & update bertahap
 │   └── functions/                  # Edge Functions: curhai-chat, analyze-image, panic-notify, school-summary, _shared
-├── test/                           # 20 file unit, widget & TestSprite verification tests
+├── test/                           # 24 file unit, widget & TestSprite verification tests
 ├── testsprite_tests/               # Rencana uji frontend/backend TestSprite & skrip server lokal Web
 ├── web/                            # Entry point & PWA manifest untuk target Flutter Web
 ├── analysis_options.yaml           # Aturan analyzer & lint ketat Dart/Flutter
@@ -291,7 +290,7 @@ flutter run --dart-define=USE_DUMMY_DATA=true
 #### Opsi 1: Menggunakan Supabase Cloud
 
 1. **Jalankan Migrasi Database & Seed Data**
-   Masuk dengan Supabase CLI lalu hubungkan ke proyek Anda, atau jalankan berurutan 10 file SQL pada `supabase/migrations/` di **Supabase SQL Editor** dilanjutkan `supabase/seed.sql`:
+   Masuk dengan Supabase CLI lalu hubungkan ke proyek Anda, atau jalankan berurutan 13 file SQL pada `supabase/migrations/` di **Supabase SQL Editor** dilanjutkan `supabase/seed.sql`:
    ```bash
    npx supabase login
    npx supabase link --project-ref <project-ref-anda>
@@ -308,7 +307,10 @@ flutter run --dart-define=USE_DUMMY_DATA=true
    - `20261126_counselor_rbac_crud.sql`
    - `20261127_report_parties_and_doc_limit.sql`
    - `20261128_report_detail_is_victim.sql`
-   - Lalu jalankan `supabase/seed.sql` untuk mengisi sekolah default (`sman1-nusantara`) dan 3 artikel edukasi awal.
+   - `20261129_fix_my_reports_isolation.sql`
+   - `20261130_reset_app_data_and_seed_guru_bk_articles.sql`
+   - `20261201_report_reporter_identity.sql`
+   - Lalu jalankan `supabase/seed.sql` untuk mengisi sekolah default (`sman1-nusantara`) dan 10 artikel edukasi awal oleh Guru BK.
 
 2. **Set Secret OpenRouter API & Deploy Edge Functions**
    Semua pemanggilan AI (`supabase/functions/_shared/ai.ts`) memakai `OPENROUTER_API_KEY` (atau alias `AI_API_KEY`). Model default adalah `qwen/qwen3.7-flash` dengan fallback otomatis ke model gratis OpenRouter ketika terjadi limit kuota (`402`/`429`).
@@ -410,7 +412,7 @@ python -m http.server 8089 --directory build/web
 | `/reports/new/story` | Form Laporan Langkah 2 (Cerita, Pelaku, Korban, PDF/DOCX <= 2 MB, Tautan Bukti) |
 | `/reports/new/review` | Form Laporan Langkah 3 (Review & Kirim) |
 | `/reports/new/sent` | Konfirmasi Terkirim & Kode Tiket `KT-XXXX-XXXX` |
-| `/reports/detail` | Detail Laporan, Timeline Status & Diskusi Privat |
+| `/reports/detail` | Detail Laporan, Identitas Pelapor, Lampiran Bukti & Timeline Status |
 | `/panic` | Tombol Darurat (Hold 2s + Jeda 5s + Konteks Situasi) |
 | `/panic/active` | Layar Darurat Aktif (Timer, GPS, Audio, SMS, Chat WA & Hubungi) |
 | `/camera` | Kamera Foto / Video / Live AI + EXIF Removal |
@@ -464,7 +466,7 @@ dart format --output=none --set-exit-if-changed lib test
 # 2. Analisis statis (strict lints di analysis_options.yaml):
 flutter analyze
 
-# 3. Jalankan seluruh unit, widget & TestSprite schema/E2E suite tests (20 file test):
+# 3. Jalankan seluruh unit, widget & TestSprite schema/E2E suite tests (24 file test):
 flutter test
 
 # 4. Jalankan tes dengan laporan coverage:
